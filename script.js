@@ -311,7 +311,6 @@ function camelize(value) {
   }
   let strings = ["кришна", "кришна", "харе", "харе",
   "харе", "харе", "кришна", "кришна", ":-O"];
-  */
 
   function unique(arr) {
     let makiseKurisu = new Set(arr);
@@ -324,3 +323,250 @@ function camelize(value) {
 ];
 
 console.log(unique(values));
+
+let messages = [
+  {text: "Hello", from: "John"},
+  {text: "How goes?", from: "John"},
+  {text: "See you soon", from: "Alice"}
+];
+
+let readSet = new WeakSet();
+
+for (let i = 0; i < messages.length; i++) {
+  readSet.add(messages[i]);
+}
+
+let salaries = {
+  "John": 100,
+  "Pete": 300,
+  "Mary": 250
+};
+
+function sumSalaries(salaries) {
+  let sum = 0;
+  if (salaries) {
+    for (let salary of Object.values(salaries)) {
+      sum += salary; 
+    }
+    return sum;
+  } else { return 0;}
+}
+let user = {
+  name: 'John',
+  age: 30,
+  ages: 300
+}
+
+function count(user) {
+  let counter = 0;
+  for (let i=0; i < Object.entries(user).length; i++) {
+    counter++;
+  }
+  return counter;
+}
+
+let user = {
+  name: "John",
+  years: 30
+};
+
+let {name, years: age, isAdmin = false} = user;
+
+let salaries = {
+  "John": 100,
+  "Pete": 300,
+  "Mary": 250
+};
+
+ function topSalary(salaries) {
+   let max = 0;
+   let wName = null;
+   
+   for (const [name, salary] of Object.entries(salaries)){
+     if (max < salary) {
+       max = salary;
+       wName = name;
+      }     
+    }
+    return wName;
+  }
+  
+  let feb20 = new Date.now();
+  
+  console.log(feb20);
+  
+  function getWeekDay(dateVar) {
+    if (dateVar.getDay() == '1') {
+      return 'ПН';
+    }
+  }
+  
+  
+  function getDateAgo(date, days) {
+    return new Date(+date - (days * 24 * 60 * 60 * 1000));
+    
+  }
+  
+  function secTillTomorrow() {
+    let today = new Date();
+    let tomorrow = new Date(today.getFullYear(), today.getMonth(),(today.getDate() + 1));
+    
+    let untilTomorrow = Math.round((tomorrow - today) / 1000);
+    
+    console.log(`${untilTomorrow}`);
+  }
+  
+  let user = {
+    name: "Василий Иванович",
+    age: 35
+  };
+  
+  let elon = JSON.stringify(user);
+  
+  console.log(elon);
+  
+  let mask = JSON.parse(elon);
+  
+  console.log(mask);
+  
+  
+  let room = {
+    number: 23
+  };
+  
+  let meetup = {
+    title: "Совещание",
+    occupiedBy: [{name: "Иванов"}, {name: "Петров"}],
+    place: room
+  };
+  
+  // цикличные ссылки
+  room.occupiedBy = meetup;
+  meetup.self = meetup;
+  
+  alert( JSON.stringify(meetup, function replacer(key, value) {
+    if (key != "" && value == meetup) {return undefined;} else { return value;}
+  }));
+  
+  /* в результате должно быть:
+  {
+    "title":"Совещание",
+    "occupiedBy":[{"name":"Иванов"},{"name":"Петров"}],
+    "place":{"number":23}
+  }
+  
+  let company = { // тот же самый объект, сжатый для краткости
+    sales: [{name: 'John', salary: 1000}, {name: 'Alice', salary: 600 }],
+    development: {
+      sites: [{name: 'Peter', salary: 2000}, {name: 'Alex', salary: 1800 }],
+      internals: [{name: 'Jack', salary: 1300}]
+    }
+  };
+  
+  function sumSalary(department) {
+    if (Array.isArray(department)) {
+      return department.reduce((prev, curr) => prev + curr.salary, 0);
+    } else {
+      let sum = 0;
+      for (let eachValue of Object.values(department)) {
+        sum += sumSalary(eachValue);
+      }
+      return sum;
+    }
+  }
+  
+  function sumTo(n) {
+    if (n == 1) { return n;}
+    else {
+      return n + sumTo(n-1);  
+    }
+    
+    // using iteration
+    // let sum = 0;
+    // for (let i = 0; n != 0; i++) {
+      //   sum += n;
+      //   n--;
+      // }
+      // return sum;
+    }
+    
+    let list1 = {
+      value: 1,
+      next: {
+        value: 2,
+        next: {
+          value: 3,
+          next: {
+            value: 4,
+            next: null
+          }
+        }
+      }
+    };
+    
+    function printList(list) {
+      // let tmp = list;
+      // while (tmp) {
+        //   console.log(tmp.value);
+        //   tmp = tmp.next;
+        // }
+        
+        console.log(list.value);
+        
+        if(list.next) { printList(list.next);}
+        else {
+          
+        }
+      }
+      
+      function sum(a) {
+        return function (b) {
+          return a * b;    
+        }
+      }
+      
+      function inBetween(a, b) {
+        return function (item) {
+          if (item >= a && item <= b) { return true;}
+          else { return false;}
+        }
+      }
+      
+      function inArray(arr) {
+        return function(item) {
+          return arr.includes(item);
+        }
+      }
+      
+      let arr = [1, 2, 3, 4, 5, 6, 7];
+      alert( arr.filter(inBetween(3, 6)) );
+
+      let users = [
+        { name: "John", age: 20, surname: "Johnson" },
+        { name: "Pete", age: 18, surname: "Peterson" },
+        { name: "Ann", age: 19, surname: "Hathaway" }
+      ];
+      
+      users.sort(byField('name'));
+      
+      function byField(field) {
+        return function () {
+          return (a, b) => a[field] > b[field] ? 1 : -1;
+        } 
+      }
+ */
+function makeCounter() {
+
+  function counter() {
+    return counter.count++;
+  };
+
+  counter.count = 0;
+
+  return counter;
+}
+
+let counter = makeCounter();
+
+counter.count = 10;
+alert( counter() ); // 10
